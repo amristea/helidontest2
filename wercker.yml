@@ -28,3 +28,24 @@ push:
         tag: latest
         repository: $DOCKER_REPONAME/helidontest2
         cmd: "curl http://localhost:8080/mysqlstatus"
+        
+# Deploy to kubernetes
+deploy:
+  box: maven:3.5.2-jdk-8
+  steps:
+    - script:
+        name: Set kubeconfig variable
+        code:  |
+           curl $KUBE_OS_CONFIG -o kubeconfig
+           export KUBECONFIG=kubeconfig
+           
+    - wercker/kubectl@3.9.0:
+        command: get nodes
+      
+    - wercker/kubectl@3.9.0:
+        command: apply -f /pipeline/source/target/app.yaml
+        
+  after-steps:
+    - script: 
+        name: Remove kubeconfig
+        code: rm -rf kubeconfig
