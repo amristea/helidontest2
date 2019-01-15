@@ -18,3 +18,13 @@ build:
       cache_repo: true
       version: 3.5.2
       maven_opts: -DskipTests
+      
+# Push to dockerhub
+push:
+  steps:
+    - internal/docker-push:
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
+        tag: latest
+        repository: $DOCKER_REPONAME/helidontest2
+        cmd: "curl http://localhost:8080/mysqlstatus"
