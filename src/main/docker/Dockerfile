@@ -1,24 +1,33 @@
-#
-# Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+FROM oraclelinux:6-slim
 
-#FROM openjdk:8-jre-slim
-FROM openjdk:8-jre-alpine
-
+#RUN yum update -y
+RUN yum install -y wget
+RUN yum install -y tar
+RUN yum install -y unzip
+RUN yum install -y mysql-server
 RUN mkdir /app
-COPY libs /app/libs
-COPY ${project.artifactId}.jar /app
 
-CMD ["java", "-jar", "/app/${project.artifactId}.jar"]
+ENV jdk=1.8.0_191
+ENV jdk_link=https://download.oracle.com/otn-pub/java/jdk/8u191-b12/2787e4a523244c269598db4e85c51e0c/jdk-8u191-linux-x64.tar.gz
+
+RUN wget -q --no-check-certificate --no-cookies \
+        --header "Cookie: oraclelicense=accept-securebackup-cookie" \
+        --output-document=oracle-jdk.tar.gz \
+        ${jdk_link} && \
+    tar -xzf oracle-jdk.tar.gz && \
+    rm oracle-jdk.tar.gz
+
+# Set environment variables
+#ENV JAVA_HOME "/jdk-${jdk}"
+ENV JAVA_HOME "/jdk${jdk}"
+ENV PATH "${PATH}:${JAVA_HOME}/bin:/opt/gradle/gradle-${gradle}/bin"
+
+COPY quickstart-se.jar /app
+COPY libs /app/libs
+COPY startup.sh /
+RUN chmod a+x /startup.sh
+
+ENTRYPOINT service mysqld start && /bin/bash
+
+CMD ["/startup.sh"]
+CMD ["java", "-jar", "/app/quickstart-se.jar"]
