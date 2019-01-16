@@ -14,6 +14,8 @@ build:
     # https://devcenter.wercker.com/development/steps/
   steps:
     # https://github.com/wercker/step-maven
+    - install-packages:
+        packages: curl maven
     - wercker/maven:
         goals: install
         cache_repo: true
