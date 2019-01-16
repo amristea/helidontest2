@@ -32,7 +32,7 @@ push:
         password: $DOCKER_PASSWORD
         tag: latest
         repository: $DOCKER_REPONAME/helidontest2
-        cmd: "curl http://localhost:8080/students/mysqlstatus"
+        cmd: "java -jar /pipeline/source/target/quickstart-mp.jar"
         
 # Deploy to kubernetes
 deploy:
