@@ -1,7 +1,7 @@
 FROM elementalconcept/java8-mysql
 
 COPY quickstart-mp.jar /app/
-COPY libs /app/
+COPY libs /app/libs
 
 ENTRYPOINT service mysql start && /bin/bash
 
