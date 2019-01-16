@@ -30,8 +30,7 @@ push:
         password: $DOCKER_PASSWORD
         tag: latest
         repository: $DOCKER_REPONAME/helidontest2
-        entrypoint: service mysql start && /bin/bash
-        cmd: "java -jar /pipeline/source/target/quickstart-mp.jar"
+        cmd: "service mysql start && java -jar /pipeline/source/target/quickstart-mp.jar"
         
 # Deploy to kubernetes
 deploy:
