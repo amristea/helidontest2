@@ -19,15 +19,16 @@ build:
         version: 3.5.2
         maven_opts: -DskipTests
       
-    - internal/docker-build:
-        dockerfile: target/Dockerfile
-        image-name: helidontest2
+    #- internal/docker-build:
+    #    dockerfile: target/Dockerfile
+    #    image-name: helidontest2
       
 # Push to dockerhub
 push:
+  box: elementalconcept/java8-mysql
   steps:
     - internal/docker-push:
-        image-name: helidontest2
+        #image-name: helidontest2
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
         tag: latest
