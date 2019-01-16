@@ -14,20 +14,25 @@ build:
   steps:
     # https://github.com/wercker/step-maven
     - wercker/maven:
-      goals: install
-      cache_repo: true
-      version: 3.5.2
-      maven_opts: -DskipTests
+        goals: install
+        cache_repo: true
+        version: 3.5.2
+        maven_opts: -DskipTests
+      
+    - internal/docker-build:
+        dockerfile: /pipeline/source/target/Dockerfile
+        image-name: helidontest2
       
 # Push to dockerhub
 push:
   steps:
     - internal/docker-push:
+        image-name: helidontest2
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
         tag: latest
         repository: $DOCKER_REPONAME/helidontest2
-        cmd: "curl http://localhost:8080/mysqlstatus"
+        cmd: "curl http://localhost:8080/students/mysqlstatus"
         
 # Deploy to kubernetes
 deploy:
