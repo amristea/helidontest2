@@ -13,9 +13,10 @@ ENV jdk_link=https://download.oracle.com/otn-pub/java/jdk/8u191-b12/2787e4a52324
 RUN wget -q --no-check-certificate --no-cookies \
         --header "Cookie: oraclelicense=accept-securebackup-cookie" \
         --output-document=oracle-jdk.tar.gz \
-        ${jdk_link} && \
-    tar -xzf oracle-jdk.tar.gz && \
-    rm oracle-jdk.tar.gz
+        ${jdk_link} 
+    #&& \
+    #tar -xzf oracle-jdk.tar.gz && \
+    #rm oracle-jdk.tar.gz
 
 # Set environment variables
 #ENV JAVA_HOME "/jdk-${jdk}"
