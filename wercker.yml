@@ -28,7 +28,7 @@ push:
     - internal/docker-push:
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
-        entrypoint: "service mysql start"
+        entrypoint: "service mysql start && /bin/bash"
         tag: latest
         repository: $DOCKER_REPONAME/helidontest2
         cmd: "java -jar /pipeline/source/target/quickstart-mp.jar"
