@@ -1,6 +1,6 @@
 FROM elementalconcept/java8-mysql
 
-COPY target/quickstart-se.jar /app
+COPY target/quickstart-mp.jar /app
 COPY target/libs /app/libs
 
 ENTRYPOINT service mysqld start && /bin/bash
