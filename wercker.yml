@@ -20,7 +20,7 @@ build:
         maven_opts: -DskipTests
       
     - internal/docker-build:
-        dockerfile: /pipeline/source/target/Dockerfile
+        dockerfile: Dockerfile
         image-name: helidontest2
       
 # Push to dockerhub
