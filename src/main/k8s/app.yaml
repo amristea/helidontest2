@@ -49,6 +49,7 @@ spec:
         - containerPort: 8080
       - name: mysql
         image: elementalconcept/java8-mysql
+        command: ["service mysql start"]
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3306
