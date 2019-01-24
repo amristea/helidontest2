@@ -47,4 +47,9 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
+      - name: mysql
+        image: shivin8080/helidontest2:base
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3306
 ---
